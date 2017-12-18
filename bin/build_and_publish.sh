@@ -8,6 +8,6 @@ nvm use 8.6.0
 npm list -g | grep yarn || npm install yarn -g
 
 yarn install
-yarn test &&
+yarn run build  &&
 
 npm publish .

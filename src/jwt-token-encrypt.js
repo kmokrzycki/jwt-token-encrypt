@@ -22,6 +22,8 @@ export default {
   readJWT(tokenStr, encSettings) {
     const tokenData = jwt.decode(tokenStr);
 
+    if (tokenData === null) throw new Error('Invalid JWT!');
+
     const publicData = objectPath.get(tokenData, 'data.public', {});
     const encryptedData = objectPath.get(tokenData, 'data.encData', '');
 

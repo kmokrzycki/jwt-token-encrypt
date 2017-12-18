@@ -6,7 +6,7 @@ import fixtures from './__fixtures__/jwt-token-encrypt';
 
 const expect = chai.expect;
 
-describe('Create JWT', () => {
+describe('Create/Read JWT', () => {
   let token;
   it('Validate JWT', async () => {
     token = await jwtCrypto.generateJWT(
@@ -31,5 +31,11 @@ describe('Create JWT', () => {
     await delete decrypted.exp;
 
     expect(decrypted).to.to.deep.equal(fixtures.jwtDecrypted);
+  });
+
+  it('Handle broken JWT', async () => {
+    const badFn = () => { jwtCrypto.readJWT('NotJWTString', fixtures.encryption) ;};
+
+    expect(badFn).to.throw(/Invalid JWT/);
   });
 });
