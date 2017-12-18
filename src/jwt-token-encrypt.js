@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import objectPath from 'object-path';
 import crypt from './encrypt';
 
 export default {
@@ -21,9 +22,12 @@ export default {
   readJWT(tokenStr, encSettings) {
     const tokenData = jwt.decode(tokenStr);
 
+    const publicData = objectPath.get(tokenData, 'data.public', {});
+    const encryptedData = objectPath.get(tokenData, 'data.encData', '');
+
     const newData = {
-      ...tokenData.data.public,
-      ...crypt.serializeDecr(encSettings, tokenData.data.encData),
+      ...publicData,
+      ...crypt.serializeDecr(encSettings, encryptedData),
     };
     tokenData.data = newData;
 
