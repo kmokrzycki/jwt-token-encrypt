@@ -29,14 +29,15 @@ let encryption = {
   };
 
 // JWT Settings
-let jwtDetails = {
-    iss: 'NKInVWhB1rVLCwxltMNuiUC6h9UudAbi',
+const jwtDetails = {
+    secret: '1234567890', // to sign the token
+    key: 'ThisIsMyAppISS',// *optional and is used as ISS
 };
 
 let token = await jwtEncrypt.generateJWT(
       jwtDetails,
       publicData,
-      encryptionSettings,
+      encryption,
       privateData
     );
 ```

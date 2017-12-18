@@ -1,6 +1,6 @@
 {
   "name": "jwt-token-encrypt",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Encrypt part of JWT to hide sensitive data.",
   "repository": {
     "type": "git",
