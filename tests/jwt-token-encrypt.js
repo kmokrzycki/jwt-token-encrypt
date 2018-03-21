@@ -10,7 +10,7 @@ describe('Create/Read JWT', () => {
   let token;
   it('Validate JWT', async () => {
     token = await jwtCrypto.generateJWT(
-      fixtures.jwtDetails,
+      { ...fixtures.jwtDetails },
       fixtures.public,
       fixtures.encryption,
       fixtures.confidential
@@ -24,6 +24,19 @@ describe('Create/Read JWT', () => {
     expect(decoded).to.to.deep.equal(fixtures.jwtDecoded);
   });
 
+  it('Validate JWT Overwrites', async () => {
+    token = await jwtCrypto.generateJWT(
+      { ...fixtures.jwtDetailsOverwrite },
+      fixtures.public,
+      fixtures.encryption,
+      fixtures.confidential
+    );
+
+    const decoded = jwt.verify(token, fixtures.jwtDetails.secret);
+
+    expect(decoded.exp - decoded.iat).to.to.equal(100);
+  });
+
   it('Read and decode JWT', async () => {
     const decrypted = jwtCrypto.readJWT(token, fixtures.encryption);
 
@@ -34,7 +47,7 @@ describe('Create/Read JWT', () => {
   });
 
   it('Handle broken JWT', async () => {
-    const badFn = () => { jwtCrypto.readJWT('NotJWTString', fixtures.encryption) ;};
+    const badFn = () => { jwtCrypto.readJWT('NotJWTString', fixtures.encryption); };
 
     expect(badFn).to.throw(/Invalid JWT/);
   });

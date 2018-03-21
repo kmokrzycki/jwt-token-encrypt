@@ -8,6 +8,11 @@ export default {
     key: 'NKInVWhB1rVLCwxltMNuiUC6h9UudAbi',
     secret: 'x6Ujx3ZmF7tWz1cLJNbsSmwbh748AP2X',
   },
+  jwtDetailsOverwrite: {
+    key: 'NKInVWhB1rVLCwxltMNuiUC6h9UudAbi',
+    secret: 'x6Ujx3ZmF7tWz1cLJNbsSmwbh748AP2X',
+    expiresIn: '100s',
+  },
   public: {
     data1: 1,
     data2: 2,
