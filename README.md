@@ -36,7 +36,12 @@ const encryption = {
 // JWT Settings
 const jwtDetails = {
     secret: '1234567890', // to sign the token
-    key: 'ThisIsMyAppISS',// *optional and is used as ISS
+    // Default values that will be automatically applied unless specified.
+    // algorithm: 'HS256',
+    // expiresIn: '12h',
+    // notBefore: '0s',
+    // Other optional values
+    key: 'ThisIsMyAppISS',// is used as ISS but can be named iss too
 };
 
 const token = await jwtEncrypt.generateJWT(

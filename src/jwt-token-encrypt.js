@@ -9,13 +9,29 @@ export default {
       encData: await crypt.serializeEncr(encSettings, encData),
     };
 
+    const jwtDefaults = {
+      algorithm: 'HS256',
+      expiresIn: '12h',
+      // notBefore: '10s',
+    };
+
+    const jwtParams = { ...jwtDetails };
+
+    const iss = jwtParams.key;
+    delete (jwtParams.key);
+    const { secret } = jwtParams;
+    delete (jwtParams.secret);
+
     return jwt.sign(
       {
-        iss: jwtDetails.key,
+        iss,
         data: jwtPayload,
       },
-      jwtDetails.secret,
-      { expiresIn: '12h' },
+      secret,
+      {
+        ...jwtDefaults,
+        ...jwtParams,
+      },
     );
   },
 
