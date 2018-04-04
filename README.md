@@ -1,5 +1,7 @@
 # jwt-token-encrypt
 
+[![Known Vulnerabilities](https://snyk.io/test/github/kmokrzycki/jwt-token-encrypt/badge.svg?targetFile=package.json)](https://snyk.io/test/github/kmokrzycki/jwt-token-encrypt?targetFile=package.json)
+
 This module allows you to generate JSON Web-Tokens with some elements of the data encrypted and read it in a very simple way, without worry too much about encryption.
 
 ## Install
