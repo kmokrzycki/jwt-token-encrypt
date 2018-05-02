@@ -29,6 +29,13 @@ export default {
       encData: '5fb8ed70a3864cbd97b25cc8ca2c0bc7',
     },
   },
+  jwtDecodedCustomEncField: {
+    iss: 'NKInVWhB1rVLCwxltMNuiUC6h9UudAbi',
+    data: {
+      public: { data1: 1, data2: 2, data3: 3 },
+      customField: '5fb8ed70a3864cbd97b25cc8ca2c0bc7',
+    },
+  },
   jwtDecrypted: {
     data: {
       pin: '1234',
