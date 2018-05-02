@@ -1,14 +1,14 @@
 {
   "name": "jwt-token-encrypt",
-  "version": "1.0.3",
-  "readme": "README.md",
+  "version": "1.0.4",
+  "readmeFilename": "README.md",
   "description": "Encrypt part of JWT to hide sensitive data.",
   "repository": {
     "type": "git",
     "url": "https://github.com/kmokrzycki/jwt-token-encrypt.git"
   },
-  "author": "Kris Mokrzycki",
-  "email": "kris.mokrzycki@jobsite.co.uk",
+  "author": "SirK79",
+  "email": "sirk7979@fmail.com",
   "license": "MIT",
   "keywords": [
     "jwt-token-encrypt",
