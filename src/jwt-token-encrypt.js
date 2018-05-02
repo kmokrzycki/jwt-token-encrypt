@@ -2,53 +2,57 @@ import jwt from 'jsonwebtoken';
 import objectPath from 'object-path';
 import crypt from './encrypt';
 
-export default {
-  async generateJWT(jwtDetails, pubData = {}, encSettings = {}, encData = {}) {
-    const jwtPayload = {
-      public: pubData,
-      encData: await crypt.serializeEncr(encSettings, encData),
-    };
 
-    const jwtDefaults = {
-      algorithm: 'HS256',
-      expiresIn: '12h',
-      // notBefore: '10s',
-    };
+const generateJWT = async (jwtDetails, pubData = {}, encSettings = {}, encData = {}, encDataKey = 'encData') => {
+  const jwtPayload = {
+    public: pubData,
+  };
 
-    const jwtParams = { ...jwtDetails };
+  jwtPayload[encDataKey] = await crypt.serializeEncr(encSettings, encData);
 
-    const iss = jwtParams.key;
-    delete (jwtParams.key);
-    const { secret } = jwtParams;
-    delete (jwtParams.secret);
+  const jwtDefaults = {
+    algorithm: 'HS256',
+    expiresIn: '12h',
+  };
 
-    return jwt.sign(
-      {
-        iss,
-        data: jwtPayload,
-      },
-      secret,
-      {
-        ...jwtDefaults,
-        ...jwtParams,
-      },
-    );
-  },
+  const jwtParams = { ...jwtDetails };
 
-  readJWT(tokenStr, encSettings) {
-    const tokenData = jwt.decode(tokenStr);
+  const iss = jwtParams.key;
+  delete (jwtParams.key);
+  const { secret } = jwtParams;
+  delete (jwtParams.secret);
 
-    if (tokenData === null) throw new Error('Invalid JWT!');
+  return jwt.sign(
+    {
+      iss,
+      data: jwtPayload,
+    },
+    secret,
+    {
+      ...jwtDefaults,
+      ...jwtParams,
+    },
+  );
+};
 
-    const publicData = objectPath.get(tokenData, 'data.public', {});
-    const encryptedData = objectPath.get(tokenData, 'data.encData', '');
+const readJWT = (tokenStr, encSettings, encDataKey = 'encData') => {
+  const tokenData = jwt.decode(tokenStr);
 
-    const newData = {
-      ...publicData,
-      ...crypt.serializeDecr(encSettings, encryptedData),
-    };
-    tokenData.data = newData;
+  if (tokenData === null) throw new Error('Invalid JWT!');
 
-    return tokenData;
-  },
+  const publicData = objectPath.get(tokenData, 'data.public', {});
+  const encryptedData = objectPath.get(tokenData, `data.${encDataKey}`, '');
+
+  const newData = {
+    ...publicData,
+    ...crypt.serializeDecr(encSettings, encryptedData),
+  };
+  tokenData.data = newData;
+
+  return tokenData;
+};
+
+export {
+  generateJWT,
+  readJWT,
 };

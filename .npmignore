@@ -1,7 +1,6 @@
 .nyc_output/*
 coverage/*
 node_modules/*
-compiled/*
 **/*.log
 yarn.lock
 package-lock.json

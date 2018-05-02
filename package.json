@@ -1,6 +1,7 @@
 {
   "name": "jwt-token-encrypt",
-  "version": "1.0.1",
+  "version": "1.0.3",
+  "readme": "README.md",
   "description": "Encrypt part of JWT to hide sensitive data.",
   "repository": {
     "type": "git",
